@@ -7,6 +7,7 @@ export class FiguresService {
 
   private _figuresUrl = 'http://localhost:8080/figurines';
   private _collectionUrl = 'http://localhost:8080/figurines/user';
+  private _collectionRemoveUrl = 'http://localhost:8080/figurines/remove';
   private _wishListUrl = 'http://localhost:8080/wish-list';
   private _newFigureUrl = 'http://localhost:8080/newFigure';
   private _myFiguresUrl = 'http://localhost:8080/myFigures';
@@ -68,7 +69,13 @@ export class FiguresService {
 
   // put httprequest that send the user id and a figure name to database on collection url
   removeFigure(body) {
-    return this.http.put<any>(this._collectionUrl, body);
+    let params = new HttpParams()
+    .set('num', body.figureId);
+    console.log(params);
+    const id = localStorage.getItem('id');
+    this.headers.append('Access-Control-Allow-Origin', '*');
+		this.headers.append('Access-Control-Allow-Methods', 'POST, PUT, GET, OPTIONS');
+    return this.http.put<any>(this._collectionRemoveUrl+'/'+body.userId +'/'+body.figureId,{headers:this.headers});
   }
 
   removeFigureWish(body) {

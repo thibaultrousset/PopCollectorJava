@@ -30,6 +30,8 @@ export class AuthService {
 
   // post httprequest that send the user datas to database on login url
   loginUser(email,password) {
+    this.headers.append('Access-Control-Allow-Origin', '*');
+		this.headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
     return this.http.get<any>(this._loginUrl + '/' + email + '/' + password)
   }
 

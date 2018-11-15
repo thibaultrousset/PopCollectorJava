@@ -33,8 +33,8 @@ export class CollectionnerComponent implements OnInit {
     pagedItems=[];
 
   body = {
-    'figure': '',
-    'id': '',
+    'figureId': '',
+    'userId': '',
     'collec': ''
   };
   // default value of the univers filter
@@ -84,8 +84,8 @@ export class CollectionnerComponent implements OnInit {
   // on the click of the button I remove the figure from the user collection
   removeFigure(figure) {
     const id = localStorage.getItem('id');
-    this.body.id = id;
-    this.body.figure = figure;
+    this.body.userId = id;
+    this.body.figureId = figure;
     this._figuresService.removeFigure(this.body)
       .subscribe(
         res => {
