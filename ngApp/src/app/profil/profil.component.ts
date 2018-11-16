@@ -13,7 +13,10 @@ export class ProfilComponent implements OnInit {
 // object will get the values set in the html
 // id isn't set in the html so I create it before
   UserData = {
-    'id': ''
+    'userId': '',
+    'userNom': '',
+    'userPrenom': '',
+    'email': ''
   };
 
   constructor(private _auth: AuthService,
@@ -21,12 +24,22 @@ export class ProfilComponent implements OnInit {
     public http: HttpClient) { }
 
   ngOnInit() {
+    const id = localStorage.getItem('id');
+    this.UserData.userId = id;
+    this._auth.getUser(id)
+      .subscribe(
+      res => {
+        this.UserData=res;
+        console.log(res);
+      },
+      err => console.log(err)
+      );
   }
 
   // send new data to update the connected user datas
   modifUser() {
     const id = localStorage.getItem('id');
-    this.UserData.id = id;
+    this.UserData.userId = id;
     this._auth.modifUser(this.UserData)
       .subscribe(
       res => {
@@ -42,12 +55,11 @@ export class ProfilComponent implements OnInit {
   deleteUser() {
     const id = localStorage.getItem('id');
 
-    this.http.delete<any>('http://localhost:3000/api/profil/' + id)
+    this._auth.deleteUser(id)
       .subscribe(
       res => localStorage.removeItem('id'),
       err => console.log(err)
       );
-    localStorage.removeItem('id');
     this._router.navigate(['/login']);
   }
 }

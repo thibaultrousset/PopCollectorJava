@@ -8,7 +8,7 @@ export class FiguresService {
   private _figuresUrl = 'http://localhost:8080/figurines';
   private _collectionUrl = 'http://localhost:8080/figurines/user';
   private _collectionRemoveUrl = 'http://localhost:8080/figurines/remove';
-  private _wishListUrl = 'http://localhost:8080/wish-list';
+  private _wishListUrl = 'http://localhost:8080/figurines/user/wish';
   private _newFigureUrl = 'http://localhost:8080/newFigure';
   private _myFiguresUrl = 'http://localhost:8080/myFigures';
   private _updateFigureUrl = 'http://localhost:8080/updateFigure';
@@ -32,18 +32,16 @@ export class FiguresService {
 
   // post httprequest that send the user id and  figure name to database on figures url
   addFigure(body) {
-    let params = new HttpParams()
-    .set('num', body.figureId);
-    console.log(params);
-    const id = localStorage.getItem('id');
     this.headers.append('Access-Control-Allow-Origin', '*');
 		this.headers.append('Access-Control-Allow-Methods', 'POST, PUT, GET, OPTIONS');
-    return this.http.put<any>(this._collectionUrl+'/'+body.userId +'/'+body.figureId,{headers:this.headers});
+    return this.http.put<any>(this._collectionUrl+'/'+body.userId +'/'+body.num,{headers:this.headers});
   }
 
     // post httprequest that send the user id and  figure name to database on figures url
    addFigureWish(body) {
-    return this.http.post<any>(this._figuresUrl, body);
+    this.headers.append('Access-Control-Allow-Origin', '*');
+		this.headers.append('Access-Control-Allow-Methods', 'POST, PUT, GET, OPTIONS');
+    return this.http.put<any>(this._wishListUrl+'/'+body.userId +'/'+body.num,{headers:this.headers});
   }
 
   addFigure2(body) {
@@ -57,7 +55,7 @@ export class FiguresService {
     // if ('All'!=univers) {
     //   return this.http.get<any>(this._figuresUrl + '/' + id+'/'+univers);
     // }else{
-      return this.http.get<any>(this._figuresUrl + '/' + id+'/'+univers);
+      return this.http.get<any>(this._figuresUrl + '/' + id + '/'+univers);
     //}
   }
 
@@ -84,8 +82,10 @@ export class FiguresService {
 
 
   // post httprequest that send the user id and  figures data univers to database on new figures url
-  newFigure(figureData) {
-    return this.http.post<any>(this._newFigureUrl, figureData);
+  newFigure(file) {
+    let params = new HttpParams()
+    .set('file', file);
+    return this.http.post<any>(this._newFigureUrl, {params:params});
   }
 
 

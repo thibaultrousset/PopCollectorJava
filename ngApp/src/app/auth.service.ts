@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from "@angular/router";
+import { isError } from 'util';
 
 @Injectable()
 
@@ -30,9 +31,11 @@ export class AuthService {
 
   // post httprequest that send the user datas to database on login url
   loginUser(email,password) {
-    this.headers.append('Access-Control-Allow-Origin', '*');
-		this.headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
     return this.http.get<any>(this._loginUrl + '/' + email + '/' + password)
+  }
+
+  getUser(userId) {
+    return this.http.get<any>(this._profilUrl + '/' + userId)
   }
 
   // function that check if there is an id in local storage
@@ -52,14 +55,14 @@ export class AuthService {
   modifUser(user) {
     this.headers.append('Access-Control-Allow-Origin', '*');
 		this.headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
-    return this.http.put<any>(this._profilUrl, user, {headers: this.headers}
-      )
+    return this.http.put<any>(this._profilUrl + '/' + user.userId, user, {headers: this.headers})
   }
 
 
   // delete httprequest thats send the user id to database on profil url
   deleteUser(id) {
-    console.log(localStorage.getItem('id'));
-    return this.http.delete<any>(this._profilUrl + id)
+    this.headers.append('Access-Control-Allow-Origin', '*');
+		this.headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
+    return this.http.delete<any>(this._profilUrl + '/delete/' + id, {headers: this.headers})
   }
 }

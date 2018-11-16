@@ -32,7 +32,7 @@ export class FiguresComponent implements OnInit {
   pagedItems = [];
 
   body = {
-    'figureId': '',
+    'num': '',
     'userId': '',
     // 'collec': ''
   };
@@ -82,10 +82,10 @@ export class FiguresComponent implements OnInit {
 
 
   // On click of the button I select the figure clicked and add it to user connected collection
-  addFigure(figureId) {
+  addFigure(num) {
     const id = localStorage.getItem('id');
     this.body.userId = id;
-    this.body.figureId = figureId;
+    this.body.num = num;
     // this.body.collec = 'collec';
     this._figuresService.addFigure(this.body)
       .subscribe(
@@ -94,16 +94,16 @@ export class FiguresComponent implements OnInit {
       );
   }
 
-  // addFigureWish(figure) {
-  //   const id = localStorage.getItem('id');
-  //   this.body.id = id;
-  //   this.body.figure = figure;
-  //   this.body.collec = 'wish';
-  //   this._figuresService.addFigureWish(this.body)
-  //     .subscribe(
-  //       res => console.log(res),
-  //       err => console.log(err)
-  //     );
-  // }
+  addFigureWish(num) {
+    const id = localStorage.getItem('id');
+    this.body.userId = id;
+    this.body.num = num;
+    //this.body.collec = 'wish';
+    this._figuresService.addFigureWish(this.body)
+      .subscribe(
+        res => console.log(res),
+        err => console.log(err)
+      );
+  }
 
 }

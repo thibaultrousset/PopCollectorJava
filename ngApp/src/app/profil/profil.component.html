@@ -7,6 +7,16 @@
       <div class="card-body">
         <form class="card-body">
           <div class="form">
+              <div class="form-group">
+                  <i class="fas fa-user"></i>
+                  <label for="">Nom</label>
+                  <input [(ngModel)]="UserData.userNom" placeholder="{{UserData.userNom}}" name="userNom" type="text" class="form-control rounded-0" required>
+                </div>
+                <div class="form-group">
+                  <i class="fas fa-key"></i>
+                  <label for="">Prenom</label>
+                  <input [(ngModel)]="UserData.userPrenom" name="userPrenom" type="text" class="form-control rounded-0" required>
+                </div>
             <div class="form-group">
               <i class="fas fa-user"></i>
               <label for="">Email</label>

@@ -12,8 +12,8 @@
               <input [(ngModel)]="figureData.nom" name="nom" type="text" class="form-control rounded-0" required>
             </div>
             <div class="form-group">
-              <label for="">Picture Link</label>
-              <input [(ngModel)]="figureData.picture" name="picture" type="text" class="form-control rounded-0" required>
+              <label for="">Picture</label>
+              <input [(ngModel)]="figureData.photo" (change)="uploadFile($event)"name="picture" type="file" class="form-control rounded-0" required>
             </div>
             <div class="form-group">
               <label for="Univers">Univers</label>
@@ -23,7 +23,7 @@
             </div>
             <div class="form-group">
               <label for="">Price</label>
-              <input [(ngModel)]="figureData.price" name="price" type="number" class="form-control rounded-0" required>
+              <input [(ngModel)]="figureData.prix" name="prix" type="number" class="form-control rounded-0" required>
             </div>
             <button (click)="newFigure()" type="button" class="btn btn-success float-right" [disabled]="!formulaire.form.valid">Send new figure</button>
           </div>

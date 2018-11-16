@@ -31,9 +31,9 @@ export class RegisterComponent implements OnInit {
        this._auth.registerUser(this.registerUserData)
       .subscribe(
       res => {
-         localStorage.setItem('id', res._id);
+         localStorage.setItem('id', res.userId);
          this._router.navigate(['/figures']);
-        console.log(res);
+        console.log(res.userId);
       },
 
       err => console.log(err)
